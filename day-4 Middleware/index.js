@@ -9,6 +9,14 @@ app.get("/", (req, res) => {
 	res.send(result);
 });
 app.use("/products", productsRouter);
+
+
+
+
+
+
+
+
 app.listen(7500, () => {
 	console.log("myserver at 7500");
 });

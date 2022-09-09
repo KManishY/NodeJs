@@ -5,12 +5,12 @@
 
 - Although named for the Domain Name System (DNS), it does not always use the DNS protocol for lookups. dns.lookup() uses the operating system facilities to perform name resolution. It may not need to perform any network communication. To perform name resolution the way other applications on the same system do, use dns.lookup().
 
--const dns = require('node:dns');
-<code>
+``` javascript
+const dns = require('node:dns');
 dns.lookup('example.org', (err, address, family) => {
   console.log('address: %j family: IPv%s', address, family);
 });
-</code>
+```
 
 
 # Express Middleware 
@@ -107,4 +107,22 @@ app.use('/', router)
 
 ## Community middleware
 - CORS middleware
+``` javascript
+var express = require('express')
+var cors = require('cors')
+var app = express()
+ 
+var corsOptions = {
+  origin: 'http://example.com',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+ 
+app.get('/products/:id', cors(corsOptions), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for only example.com.'})
+})
+ 
+app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
+```
 

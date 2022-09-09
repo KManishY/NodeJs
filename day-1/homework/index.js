@@ -6,19 +6,19 @@
 // eg node index.js random will just generate random number for you
 // use crypto module to generate random number. you can also decide to get length from args
 //! calculator
-const fs = require("fs");
+// const fs = require("fs");
 
-const readline = require("readline").createInterface({
-	input: process.stdin,
-	output: process.stdout,
-});
+// const readline = require("readline").createInterface({
+// 	input: process.stdin,
+// 	output: process.stdout,
+// });
 
-readline.question(`What's your name?`, (input) => {
-	input = input.trim().split(" ");
-	console.log("input: ", input);
+// readline.question(`What's your name?`, (input) => {
+// 	input = input.trim().split(" ");
+// 	console.log("input: ", input);
 
-	readline.close();
-});
+// 	readline.close();
+// });
 
 //! create read edit delete
 // Create a file server in nodejs using http
@@ -65,3 +65,48 @@ readline.question(`What's your name?`, (input) => {
 //? remove file and folder using unlinkSync
 
 // fs.unlinkSync("newdata/newdemoFile.txt");
+
+
+// import readline module
+const readline = require("readline");
+const crypto = require("node:crypto");
+// create interface for input and output
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+// question user to enter name
+rl.question("Write your question ?  \n", function (string) {
+    input = string;
+    let arr = input.trim().split(" ");
+    let op = arr[0];
+    let values = [];
+    for (let i = 1; i < arr.length; i++) {
+        values.push(Number(arr[i]));
+    }
+    let ans = calculator(op, values);
+    console.log("Your Answers is : ", ans);
+    rl.close();
+});
+
+function calculator(op, data) {
+    if (op === "add") {
+        return data.reduce((p, c) => p + c, 0);
+    } else if (op === "sub") {
+        return data[1] - data[0];
+    } else if (op === "mult") {
+        return data.reduce((p, c) => p * c, 1);
+    } else if (op === "divide") {
+        return data[1] / data[0];
+    } else if (op === "sin") {
+        return Math.sin(data[0]);
+    } else if (op === "cos") {
+        return Math.cos(data[0]);
+    } else if (op === "tan") {
+        return Math.tan(data[0]);
+    } else if (op === "random") {
+        const n = crypto.randomInt(6);
+        return n;
+    }
+}

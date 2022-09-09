@@ -1,5 +1,5 @@
 {
-	"name": "day-4-middleware",
+	"name": "day-6-mongooconnect",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -11,8 +11,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"cors": "^2.8.5",
 		"express": "^4.18.1",
+		"mongoose": "^6.6.0",
 		"nodemon": "^2.0.19"
 	}
 }
