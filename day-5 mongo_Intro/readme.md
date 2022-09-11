@@ -60,5 +60,30 @@ db.getCollection('persons').find({})
 db.getCollection('persons').find().count()
 ```
 
+Find all the countries in region "Asia"
+```
+db.advanceQuery.find({region:"Asia"}).count()
+```
+Find all the countries with currency: "EUR"
+```
+db.advanceQuery.find({currency:"EUR"})
+```
+Find all the countries whose timezone's gmtOffset is 3600
+```
+db.advanceQuery.find({timezones:{$elemMatch:{gmtOffset:3600}}})
+
+```
+Find all the countries whose timezone's gmtOffset is 3600 AND timezone name is Central European Time (or CET)
+```
+db.advanceQuery.find({timezones:{$elemMatch:{gmtOffset:3600,tzName:"Central European Time"}}})
+```
+Find All the countries with more than 1 time zone (hint: size of array)
+```
+
+```
+Find All the countries with "Korean" translation (KR)
+```
+db.advanceQuery.find({translations:{$elemMatch:{}}})
+```
 
 
