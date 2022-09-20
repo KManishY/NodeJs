@@ -1,0 +1,16 @@
+{
+	"posts": [
+		{
+			"id": 2,
+			"title": "something",
+			"author": "manish",
+			"content": "soo much data"
+		},
+		{
+			"id": 3,
+			"title": "something",
+			"author": "manish",
+			"content": "soo much data"
+		}
+	]
+}

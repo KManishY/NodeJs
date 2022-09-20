@@ -9,7 +9,7 @@ loginController.post("/", async (req, res) => {
 	console.log("isValid: ", isValid);
 
 	if (isValid) {
-		var token = jwt.sign({ foo: "bar" }, "shhhhh");
+		var token = jwt.sign({ foo: "bar" }, "secret");
 		res.send({ msg: "Login Successful", token: token });
 	} else {
 		res.send("Not valid");

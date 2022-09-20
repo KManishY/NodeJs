@@ -1,0 +1,18 @@
+Find all the users, whose 'id' OR 'age' OR number of 'family_members' is even, add a new field "even_user" :true to these users.F
+
+
+
+db.data.updateMany({$or:[{id:{$mod:[2,0]}},{age:{$mod:[2,0]}},{family_members:{$mod:[2,0]}}]},{$set: {"even_user":true}})
+
+Find all the users, whose 'gender' is Male AND 'age' is odd - and decrease their 'age' by 1.
+
+
+db.data.updateMany({$and:[{gender:"Male"},{age:{$mod:[2,1]}}]},{$inc:{age:-1}})
+
+Find all the users, whose 'native' is United States AND 'age' is less than or equal to 23 - and remove 'relocate_to' field, - and then write a query to find and sort them in ascending order of 'family_members';
+
+
+
+db.data.updateMany({$and:[{native:"United States"},{age:{$lte:30}}]},{$unset:{relocate_to:""}})
+
+db.data.find().sort({family_members:1})

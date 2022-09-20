@@ -4,11 +4,11 @@ const dashboardController = express.Router();
 
 dashboardController.get("/", async (req, res) => {
 	const token = req.headers.authorization.split(" ")[0];
-	jwt.verify(token, "shhhhh", function (err, decoded) {
+	jwt.verify(token, "secret", function (err, decoded) {
 		try {
 			console.log("decoded: ", decoded.foo);
 			res.send("some important information");
-		} catch (err) {
+		} catch {
 			console.log(err);
 		}
 	});
