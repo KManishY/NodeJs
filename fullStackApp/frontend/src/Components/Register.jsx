@@ -12,7 +12,7 @@ function Register() {
 			age,
 		};
 
-		fetch("http://localhost:8080/user/signup", {
+		fetch("https://quiet-retreat-10961.herokuapp.com/user/signup", {
 			method: "POST",
 			mode: "no-cors",
 			headers: {

@@ -10,7 +10,7 @@ function Login() {
 			password,
 		};
 
-		fetch("http://localhost:8080/user/login", {
+		fetch("https://quiet-retreat-10961.herokuapp.com/user/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
