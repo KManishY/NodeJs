@@ -1,20 +1,35 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 
 function Notes() {
 	const [loading, setLoading] = useState(false);
 	const [notes, setNotes] = useState([]);
+	console.log("notes: ", notes);
 	const token = localStorage.getItem("psc_app_token");
+
 	const getData = () => {
-		fetch("https://quiet-retreat-10961.herokuapp.com/notes", {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => res.json())
-			.then((res) => setNotes(res))
-			.catch((err) => console.log(err));
+		return axios
+			.get("https://quiet-retreat-10961.herokuapp.com/notes", {
+				headers: {
+					Authorization: ` Bearer ${token}`,
+				},
+			})
+			.then((response) => {
+				setNotes(response.data);
+			});
 	};
+
+	// const getData = () => {
+	// 	fetch("https://quiet-retreat-10961.herokuapp.com/notes", {
+	// 		method: "GET",
+	// 		headers: {
+	// 			Authorization: `Bearer ${token}`,
+	// 		},
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((res) => setNotes(res))
+	// 		.catch((err) => console.log(err));
+	// };
 	useEffect(() => {
 		getData();
 	}, []);
@@ -29,6 +44,7 @@ function Notes() {
 					return (
 						<div key={index}>
 							<p>{note.Heading}</p>
+							<p>{note.Tag}</p>
 							<p>{note._id}</p>
 							<p>{note.userId}</p>
 							<button>DELETE</button>

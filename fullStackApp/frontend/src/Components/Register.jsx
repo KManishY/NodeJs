@@ -1,48 +1,47 @@
+import axios from "axios";
 import { useState } from "react";
 
 function Register() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [age, setAge] = useState("");
+	const [user, setUser] = useState({
+		email: "",
+		password: "",
+		age: "",
+	});
 
-	const handleSubmit = () => {
-		const payload = {
-			email,
-			password,
-			age,
-		};
+	const handleChange = (e) => {
+		setUser({ ...user, [e.target.name]: e.target.value });
+	};
 
-		fetch("https://quiet-retreat-10961.herokuapp.com/user/signup", {
-			method: "POST",
-			mode: "no-cors",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(payload),
-		})
-			.then((res) => res.json())
-			.then((res) => console.log(res))
+	const handleSubmit = async () => {
+		await axios
+			.post("https://quiet-retreat-10961.herokuapp.com/user/signup", user)
+			.then((response) => console.log(response))
 			.catch((err) => console.log(err));
 	};
 	return (
 		<div>
 			<h1>Register here</h1>
 			<input
+				name='email'
 				type='text'
 				placeholder='email'
-				onChange={(e) => setEmail(e.target.value)}
+				onChange={(e) => handleChange(e)}
 			/>
 			<br />
 			<input
+				name='password'
 				type='text'
 				placeholder='pwd'
-				onChange={(e) => setPassword(e.target.value)}
+				onChange={(e) => handleChange(e)}
+				// onChange={(e) => setPassword(e.target.value)}
 			/>
 			<br />
 			<input
 				type='text'
+				name='age'
 				placeholder='age'
-				onChange={(e) => setAge(e.target.value)}
+				// onChange={(e) => setAge(e.target.value)}
+				onChange={(e) => handleChange(e)}
 			/>
 			<br />
 			<button onClick={handleSubmit}>Register</button>

@@ -8,8 +8,8 @@ import { Notes } from "./Components/Notes";
 function App() {
 	return (
 		<div className='App'>
+			<Home />
 			<Routes>
-				<Route path='/' element={<Home />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/notes' element={<Notes />} />
