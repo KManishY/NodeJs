@@ -6,6 +6,7 @@ function Notes() {
 	const [notes, setNotes] = useState([]);
 	console.log("notes: ", notes);
 	const token = localStorage.getItem("psc_app_token");
+	console.log("token: ", token);
 
 	const getData = () => {
 		return axios
@@ -15,6 +16,7 @@ function Notes() {
 				},
 			})
 			.then((response) => {
+				console.log("response: ", response);
 				setNotes(response.data);
 			});
 	};

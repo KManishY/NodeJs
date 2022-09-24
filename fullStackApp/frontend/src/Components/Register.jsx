@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { registerController } from "../api.js";
 
 function Register() {
 	const [user, setUser] = useState({
@@ -7,16 +8,12 @@ function Register() {
 		password: "",
 		age: "",
 	});
-
 	const handleChange = (e) => {
 		setUser({ ...user, [e.target.name]: e.target.value });
 	};
 
 	const handleSubmit = async () => {
-		await axios
-			.post("https://quiet-retreat-10961.herokuapp.com/user/signup", user)
-			.then((response) => console.log(response))
-			.catch((err) => console.log(err));
+		await registerController(user);
 	};
 	return (
 		<div>
@@ -33,14 +30,12 @@ function Register() {
 				type='text'
 				placeholder='pwd'
 				onChange={(e) => handleChange(e)}
-				// onChange={(e) => setPassword(e.target.value)}
 			/>
 			<br />
 			<input
 				type='text'
 				name='age'
 				placeholder='age'
-				// onChange={(e) => setAge(e.target.value)}
 				onChange={(e) => handleChange(e)}
 			/>
 			<br />

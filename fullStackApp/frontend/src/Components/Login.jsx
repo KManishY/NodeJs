@@ -1,44 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loginController } from "../api.js";
 
 function Login() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
-	const handleSubmit = () => {
-		const payload = {
-			email,
-			password,
-		};
-
-		fetch("https://quiet-retreat-10961.herokuapp.com/user/login", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(payload),
-		})
-			.then((res) => res.json())
-			.then((res) => {
-				console.log(res);
-				if (res.token) {
-					localStorage.setItem("psc_app_token", res.token);
-				}
-			})
-			.catch((err) => console.log(err));
+	const [user, setUser] = useState({
+		email: "",
+		password: "",
+	});
+	const handleChange = (e) => {
+		setUser({ ...user, [e.target.name]: e.target.value });
 	};
+	const handleSubmit = async () => {
+		await loginController(user);
+	};
+
 	return (
 		<div>
 			<h1>Login here</h1>
 			<input
-				type='text'
+				name='email'
+				type='email'
 				placeholder='email'
-				onChange={(e) => setEmail(e.target.value)}
+				onChange={(e) => handleChange(e)}
 			/>
 			<br />
 			<input
-				type='text'
+				name='password'
+				type='password'
 				placeholder='pwd'
-				onChange={(e) => setPassword(e.target.value)}
+				onChange={(e) => handleChange(e)}
 			/>
 			<br />
 			<button onClick={handleSubmit}>Login</button>

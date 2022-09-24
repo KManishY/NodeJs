@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
-
+import styled from "../style/home.module.css";
 function Home() {
 	return (
-		<h1>
-			<Link to='/login'>Login</Link>
-			<Link to='/register'>register</Link>
-			<Link to='/notes'>Notes</Link>
-		</h1>
+		<div className={styled.mainDiv}>
+			<div>
+				<Link to='/notes'>Notes</Link>
+			</div>
+			<div>
+				<Link to='/login'>Login</Link>
+			</div>
+			<div>
+				<Link to='/register'>register</Link>
+			</div>
+		</div>
 	);
 }
 
