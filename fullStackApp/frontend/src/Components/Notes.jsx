@@ -1,43 +1,38 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { deletedata, editdata, getAllData } from "../api.js";
 
 function Notes() {
 	const [loading, setLoading] = useState(false);
 	const [notes, setNotes] = useState([]);
-	console.log("notes: ", notes);
-	const token = localStorage.getItem("psc_app_token");
-	console.log("token: ", token);
+	const navigate = useNavigate();
 
-	const getData = () => {
-		return axios
-			.get("https://quiet-retreat-10961.herokuapp.com/notes", {
-				headers: {
-					Authorization: ` Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				console.log("response: ", response);
-				setNotes(response.data);
-			});
+	const getDataFunc = async () => {
+		try {
+			const res = await getAllData();
+			console.log("res: ", res);
+			setNotes(res.data);
+		} catch (error) {
+			console.log("error: ", error);
+		}
 	};
-
-	// const getData = () => {
-	// 	fetch("https://quiet-retreat-10961.herokuapp.com/notes", {
-	// 		method: "GET",
-	// 		headers: {
-	// 			Authorization: `Bearer ${token}`,
-	// 		},
-	// 	})
-	// 		.then((res) => res.json())
-	// 		.then((res) => setNotes(res))
-	// 		.catch((err) => console.log(err));
-	// };
 	useEffect(() => {
-		getData();
+		getDataFunc();
 	}, []);
 	if (!localStorage.getItem("psc_app_token")) {
 		return <h1>Please login again</h1>;
 	}
+	const handleDelete = async (id) => {
+		console.log("1");
+		try {
+			await deletedata(id);
+			getDataFunc();
+		} catch (error) {
+			console.log("error: ", error);
+		}
+	};
+
 	return (
 		<div>
 			<h1>Notes here</h1>
@@ -49,7 +44,12 @@ function Notes() {
 							<p>{note.Tag}</p>
 							<p>{note._id}</p>
 							<p>{note.userId}</p>
-							<button>DELETE</button>
+							<button onClick={() => handleDelete(note._id)}>
+								DELETE
+							</button>
+							<Link to={`/editNotes/${note._id}`}>
+								<button>Edit</button>
+							</Link>
 						</div>
 					);
 				})}
